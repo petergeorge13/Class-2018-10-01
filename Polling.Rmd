@@ -1,0 +1,22 @@
+---
+title: "Italian Polls"
+author: "PG"
+date: "October 1, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(gov.1005.data)
+read.csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
+```
+
+```{r}
+italian_data %>%
+  group_by(year >= 2017) %>%
+  ggplot(aes(x = month, y = firm)) +
+  geom_point() +
+  geom_smooth()
+```
