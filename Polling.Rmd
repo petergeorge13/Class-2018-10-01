@@ -6,17 +6,14 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 library(tidyverse)
-library(dplyr)
-library(gov.1005.data)
-read.csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
 ```
 
 ```{r}
-italian_data %>%
-  group_by(year >= 2017) %>%
-  ggplot(aes(x = month, y = firm)) +
-  geom_point() +
-  geom_smooth()
+library(dplyr)
+library(gov.1005.data)
+raw <- read.csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
 ```
+
+Purpose of this document is to show polling resluts in Italy.
