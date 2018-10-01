@@ -8,12 +8,15 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 library(tidyverse)
+library(dplyr)
+library(gov.1005.data)
+raw <- read_csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
 ```
 
 ```{r}
-library(dplyr)
-library(gov.1005.data)
-raw <- read.csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
+raw %>%
+  ggplot(aes(x = date, y =LN)) + geom_point() 
 ```
-
+  
+  
 Purpose of this document is to show polling resluts in Italy.
