@@ -10,13 +10,20 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 library(tidyverse)
 library(dplyr)
 library(gov.1005.data)
+library(knitr)
 raw <- read_csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
+  mutate(sd - parse_number(sd))
 ```
 
 ```{r}
 raw %>%
-  ggplot(aes(x = date, y =LN)) + geom_point() 
+  select(date, firm, n, LN,M5S,PD,FIPDLFI) %>%
+  filter(date >= "2017-09-26") %>%
+  gather(key = "party", value = "poll", LN:FIPDLFI) %>%
+  ggplot(aes(x = date, y = poll, color = party)) +
+    geom_smooth() +
+    geom_point(alpha = 0.2, size = 0.5)
+  
 ```
-  
-  
-Purpose of this document is to show polling resluts in Italy.
+
+Purpose of this document is to show polling results in Italy.
