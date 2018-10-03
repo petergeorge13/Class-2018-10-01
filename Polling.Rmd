@@ -11,19 +11,24 @@ library(tidyverse)
 library(dplyr)
 library(gov.1005.data)
 library(knitr)
-raw <- read_csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv")
-  mutate(sd - parse_number(sd))
+raw <- read_csv("https://pollofpolls.eu/get/polls/IT-parliament/format/csv", guess_max = 3000) 
 ```
 
 ```{r}
+good_firms <- raw %>%
+  count(firm) %>% 
+  filter(nn > 100)
+  
 raw %>%
+  filter(firm %in% good_firms$firm) %>%
   select(date, firm, n, LN,M5S,PD,FIPDLFI) %>%
   filter(date >= "2017-09-26") %>%
   gather(key = "party", value = "poll", LN:FIPDLFI) %>%
   ggplot(aes(x = date, y = poll, color = party)) +
     geom_smooth() +
-    geom_point(alpha = 0.2, size = 0.5)
+    geom_point(alpha = 0.4, size = 0.5)
   
 ```
+
 
 Purpose of this document is to show polling results in Italy.
